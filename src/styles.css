@@ -1,0 +1,706 @@
+/* ─────────────────────────────────────────────
+   复古桌游风 · 全局样式
+   深木底 / 羊皮纸卡 / 深红桌布 / 楷体标题 / 硬阴影
+   全部纹理用 CSS 生成,不依赖外部图片与字体
+   ───────────────────────────────────────────── */
+
+:root {
+  /* 木色 */
+  --wood-bg: #241a10;
+  --wood-panel: #2e2113;
+  --wood-edge: #1c130a;
+  --wood-light: #4a3423;
+  /* 羊皮纸 */
+  --paper: #efe3c8;
+  --paper-deep: #e0d0aa;
+  --paper-dark: #d8c69c;
+  /* 墨 */
+  --ink: #2b2116;
+  --ink-soft: #6b5a41;
+  --ink-faint: #8a785c;
+  /* 深红 */
+  --red: #8c2f2f;
+  --red-bright: #a63a3a;
+  --red-dark: #5e1f1f;
+  /* 金 */
+  --gold: #c9a227;
+  --gold-deep: #9c7c1e;
+  /* 好人阵营墨绿 */
+  --good: #3d5a3a;
+  --good-dark: #2c4230;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+  color: var(--ink);
+}
+
+/* 木纹底:粗木理 + 细纹 */
+body {
+  background:
+    repeating-linear-gradient(88deg, rgba(0, 0, 0, 0.05) 0 3px, transparent 3px 13px),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.015) 0 2px, transparent 2px 7px),
+    linear-gradient(180deg, #2b1e11, #241a10 60%, #20160c);
+}
+
+/* —— 羊皮纸卡片(带双描边金线 + 硬阴影)—— */
+.card {
+  background:
+    radial-gradient(120% 100% at 50% 0%, rgba(255, 255, 255, 0.12), transparent 55%),
+    linear-gradient(180deg, var(--paper) 0%, var(--paper-deep) 100%);
+  border: 2px solid var(--ink);
+  box-shadow:
+    inset 0 0 0 1px var(--paper),
+    inset 0 0 0 4px var(--ink-soft),
+    inset 0 0 0 5px var(--gold),
+    5px 6px 0 rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
+}
+
+/* —— 按钮:桌游筹码(硬阴影,按下沉入)—— */
+button {
+  font-family: inherit;
+  cursor: pointer;
+  background: linear-gradient(180deg, #5d4427, #49331c);
+  color: #f2e7c9;
+  border: 2px solid var(--wood-edge);
+  box-shadow: 0 3px 0 var(--wood-edge);
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 14px;
+  transition: none;
+}
+
+button:hover {
+  filter: brightness(1.08);
+}
+
+button:active {
+  transform: translateY(3px);
+  box-shadow: 0 0 0 var(--wood-edge);
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  filter: none;
+}
+
+button.primary {
+  background: linear-gradient(180deg, var(--red-bright), var(--red));
+  border-color: var(--red-dark);
+  box-shadow: 0 3px 0 var(--red-dark);
+  color: #f7ecd2;
+  font-weight: bold;
+}
+
+button.ghost {
+  background: transparent;
+  border-color: var(--ink-soft);
+  box-shadow: 0 2px 0 rgba(43, 33, 22, 0.35);
+  color: var(--ink);
+}
+
+button.ghost.small {
+  padding: 4px 10px;
+  font-size: 12px;
+}
+
+input[type='text'],
+input[type='password'],
+select,
+textarea {
+  background: #f7efdb;
+  border: 2px solid var(--ink-soft);
+  color: var(--ink);
+  border-radius: 3px;
+  padding: 7px 10px;
+  font-size: 14px;
+  font-family: inherit;
+  box-shadow: inset 2px 2px 4px rgba(43, 33, 22, 0.15);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--red);
+}
+
+input[type='checkbox'] {
+  accent-color: var(--red);
+}
+
+/* 楷体大标题 */
+.display-title {
+  font-family: 'STKaiti', 'KaiTi', 'Kaiti SC', 'SimSun', serif;
+  font-weight: bold;
+  letter-spacing: 0.12em;
+}
+
+/* 宋体正文(记录/发言文本) */
+.song {
+  font-family: 'STSong', 'SimSun', 'Songti SC', serif;
+}
+
+/* 装饰分隔线 */
+.ornament {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--gold-deep);
+  font-size: 12px;
+}
+
+.ornament::before,
+.ornament::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-deep), transparent);
+}
+
+/* ═══════════════════ 设置页 ═══════════════════ */
+
+.setup {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 40px 16px 72px;
+  color: var(--paper);
+}
+
+.setup-title {
+  text-align: center;
+  margin: 0;
+  font-size: 46px;
+  color: #f2e7c9;
+  text-shadow: 0 3px 0 rgba(0, 0, 0, 0.5);
+}
+
+.setup .sub {
+  text-align: center;
+  color: #c9b892;
+  margin: 10px 0 8px;
+  font-size: 13px;
+}
+
+.setup .card {
+  color: var(--ink);
+  margin-bottom: 26px;
+  padding: 20px 22px 16px;
+}
+
+.card-title {
+  font-family: 'STKaiti', 'KaiTi', 'Kaiti SC', 'SimSun', serif;
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--ink);
+  margin: 0 0 6px;
+  text-align: center;
+  letter-spacing: 0.2em;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 14px 0;
+}
+
+.row label {
+  min-width: 96px;
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+
+.row input {
+  flex: 1;
+  min-width: 0;
+}
+
+.row.wrap {
+  flex-wrap: wrap;
+}
+
+/* 预设按钮:筹码样式 */
+.chip {
+  padding: 6px 16px;
+  font-size: 14px;
+  font-family: 'STKaiti', 'KaiTi', serif;
+  letter-spacing: 0.06em;
+}
+
+/* 角色数量行 */
+.role-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+  gap: 10px;
+  margin: 6px 0 4px;
+}
+
+.role-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(180deg, #e8dab8, var(--paper-deep));
+  border: 1px solid var(--ink-soft);
+  border-radius: 4px;
+  padding: 6px 10px;
+  box-shadow: 0 2px 0 rgba(43, 33, 22, 0.3);
+}
+
+.role-item span {
+  flex: 1;
+  font-size: 14px;
+  font-family: 'STKaiti', 'KaiTi', serif;
+  letter-spacing: 0.1em;
+}
+
+.stepper {
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border-radius: 3px;
+  font-size: 15px;
+  line-height: 1;
+  box-shadow: 0 2px 0 var(--wood-edge);
+}
+
+.total-line {
+  color: var(--ink-soft);
+  font-size: 13px;
+  margin: 10px 0 6px;
+}
+
+.checks {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.checks label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.hint {
+  font-size: 12px;
+  color: var(--ink-soft);
+  line-height: 1.7;
+}
+
+.test-status {
+  font-size: 13px;
+  color: var(--red);
+  min-height: 18px;
+  margin: 2px 0 8px;
+}
+
+.error {
+  color: #f0c9c0;
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+.setup > .primary {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  font-size: 18px;
+  font-family: 'STKaiti', 'KaiTi', serif;
+  letter-spacing: 0.4em;
+  box-shadow: 0 5px 0 var(--red-dark);
+}
+
+/* ═══════════════════ 对局页 ═══════════════════ */
+
+.game-screen {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+}
+
+.scene-wrap {
+  position: absolute;
+  inset: 0;
+}
+
+.scene-wrap canvas {
+  display: block;
+}
+
+.top-bar {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  right: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  pointer-events: none;
+}
+
+.top-bar button {
+  pointer-events: auto;
+}
+
+/* 阶段铭牌:深木凹牌 */
+.phase-plaque,
+.round-plaque {
+  background: linear-gradient(180deg, #332414, #241a10);
+  border: 2px solid var(--wood-edge);
+  box-shadow:
+    inset 0 0 0 1px #4d3a22,
+    0 2px 0 rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
+  padding: 6px 16px;
+  font-size: 14px;
+  color: #e8d9b4;
+  font-family: 'STKaiti', 'KaiTi', serif;
+  letter-spacing: 0.2em;
+}
+
+.round-plaque {
+  color: #c9b892;
+  letter-spacing: 0.1em;
+}
+
+.spacer {
+  flex: 1;
+}
+
+/* 身份面板 */
+.info-panel {
+  position: absolute;
+  top: 64px;
+  right: 14px;
+  width: 232px;
+  padding: 14px 16px 12px;
+  font-size: 13px;
+}
+
+.my-role {
+  border: 2px solid var(--ink);
+  border-radius: 4px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  box-shadow: inset 0 0 0 1px var(--paper), inset 0 0 0 3px var(--ink-soft);
+}
+
+.my-role.good {
+  background: linear-gradient(180deg, #dde4c9, #c9d4b0);
+}
+
+.my-role.wolf {
+  background: linear-gradient(180deg, #e0c2b8, #cfa396);
+}
+
+.my-role .role-stamp {
+  display: inline-block;
+  border: 2px solid;
+  border-radius: 3px;
+  padding: 2px 10px;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: 'STKaiti', 'KaiTi', serif;
+  letter-spacing: 0.2em;
+  margin-bottom: 6px;
+}
+
+.my-role.good .role-stamp {
+  color: var(--good-dark);
+  border-color: var(--good-dark);
+}
+
+.my-role.wolf .role-stamp {
+  color: var(--red);
+  border-color: var(--red);
+}
+
+.role-desc {
+  color: var(--ink-soft);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.partners,
+.skills {
+  margin-top: 6px;
+  color: var(--red-dark);
+  font-size: 12px;
+}
+
+.alive-line,
+.revealed-line {
+  color: var(--ink-soft);
+  margin-top: 5px;
+  line-height: 1.5;
+}
+
+/* 对局记录:羊皮纸卷 */
+.log-panel {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  width: 320px;
+  max-height: 42%;
+  padding: 10px 14px 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.log-title {
+  font-family: 'STKaiti', 'KaiTi', serif;
+  font-size: 14px;
+  text-align: center;
+  letter-spacing: 0.3em;
+  color: var(--ink-soft);
+  margin-bottom: 6px;
+}
+
+.log-list {
+  overflow-y: auto;
+  font-family: 'STSong', 'SimSun', serif;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.log-line {
+  color: var(--ink);
+}
+
+.log-line.system {
+  color: var(--red);
+}
+
+.log-line.speech {
+  color: var(--ink);
+}
+
+.log-line.vote {
+  color: #39517a;
+}
+
+.log-line.night {
+  color: #5e4a70;
+}
+
+.log-time {
+  color: var(--ink-faint);
+  margin-right: 6px;
+  font-size: 11px;
+  font-family: 'Microsoft YaHei', sans-serif;
+}
+
+.log-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.log-list::-webkit-scrollbar-thumb {
+  background: var(--ink-soft);
+  border-radius: 3px;
+}
+
+/* 发言输入 */
+.speech-panel {
+  position: absolute;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  width: min(560px, calc(100% - 32px));
+  padding: 14px 16px 12px;
+}
+
+.speech-title {
+  font-family: 'STKaiti', 'KaiTi', serif;
+  font-size: 17px;
+  color: var(--red-dark);
+  margin-bottom: 8px;
+  font-weight: bold;
+  letter-spacing: 0.15em;
+}
+
+.speech-panel textarea {
+  width: 100%;
+  resize: none;
+}
+
+.speech-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.speak-toggle {
+  font-size: 13px;
+  color: var(--ink-soft);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* 弹窗 */
+.modal-mask {
+  position: absolute;
+  inset: 0;
+  background: rgba(16, 10, 5, 0.62);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.modal {
+  background:
+    radial-gradient(120% 100% at 50% 0%, rgba(255, 255, 255, 0.14), transparent 55%),
+    linear-gradient(180deg, var(--paper) 0%, var(--paper-deep) 100%);
+  border: 2px solid var(--ink);
+  box-shadow:
+    inset 0 0 0 1px var(--paper),
+    inset 0 0 0 5px var(--ink-soft),
+    inset 0 0 0 6px var(--gold),
+    7px 8px 0 rgba(0, 0, 0, 0.45);
+  border-radius: 4px;
+  padding: 22px 26px;
+  max-width: 500px;
+  width: calc(100% - 40px);
+  max-height: 80%;
+  overflow-y: auto;
+}
+
+.modal h3 {
+  margin: 0 0 6px;
+  font-size: 20px;
+  font-family: 'STKaiti', 'KaiTi', serif;
+  letter-spacing: 0.12em;
+  text-align: center;
+}
+
+.modal .sub {
+  color: var(--ink-soft);
+  font-size: 13px;
+  text-align: center;
+}
+
+/* 目标名签 */
+.target-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 10px;
+  margin: 14px 0;
+}
+
+.target-btn {
+  padding: 10px;
+  font-size: 14px;
+  font-family: 'STKaiti', 'KaiTi', serif;
+  letter-spacing: 0.08em;
+}
+
+.target-btn.on {
+  background: linear-gradient(180deg, var(--red-bright), var(--red));
+  border-color: var(--red-dark);
+  color: #f7ecd2;
+}
+
+.target-btn.heal.on {
+  background: linear-gradient(180deg, #4d7a52, var(--good));
+  border-color: var(--good-dark);
+}
+
+.target-btn.poison.on {
+  background: linear-gradient(180deg, #7a4d6e, #5e3a54);
+  border-color: #40253a;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.witch-victim {
+  color: var(--red-dark);
+  text-align: center;
+}
+
+.witch-actions,
+.hunter-actions {
+  margin: 10px 0;
+  text-align: center;
+}
+
+/* 夜晚等待提示 */
+.night-wait {
+  position: absolute;
+  top: 88px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, #332414, #241a10);
+  border: 2px solid var(--wood-edge);
+  box-shadow: inset 0 0 0 1px #4d3a22;
+  border-radius: 4px;
+  padding: 10px 22px;
+  font-size: 14px;
+  color: #c9b892;
+  font-family: 'STKaiti', 'KaiTi', serif;
+  letter-spacing: 0.15em;
+}
+
+/* 结算 */
+.result h3 {
+  font-size: 26px;
+  letter-spacing: 0.15em;
+}
+
+.player-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(116px, 1fr));
+  gap: 10px;
+  margin: 16px 0;
+}
+
+.player-cell {
+  background: linear-gradient(180deg, #e8dab8, var(--paper-deep));
+  border: 1px solid var(--ink-soft);
+  border-radius: 4px;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  box-shadow: 0 2px 0 rgba(43, 33, 22, 0.3);
+}
+
+.player-cell.wolf {
+  border-color: var(--red);
+}
+
+.player-cell.good {
+  border-color: var(--good);
+}
+
+.p-name {
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.p-role {
+  color: var(--ink-soft);
+  font-size: 12px;
+  font-family: 'STKaiti', 'KaiTi', serif;
+}
